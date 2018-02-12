@@ -10,14 +10,16 @@ import Foundation
 import UIKit
 
 public struct SpotlightNode {
-    var text: String
+    var text: String?
+    var attributedText: NSAttributedString?
     var target: SpotlightTarget
 
     var textColor: UIColor = .white
     var font: UIFont = UIFont(name: "Futura", size: 18)!
 
-    public init(text: String, target: SpotlightTarget) {
+    public init(text: String?, attributedText: NSAttributedString?, target: SpotlightTarget) {
         self.text = text
+        self.attributedText = attributedText
         self.target = target
     }
 

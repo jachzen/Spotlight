@@ -13,7 +13,16 @@ import UIKit
 
 enum ButtonTitles: String {
     case back = "Back"
+    case cancel = "Cancel"
     case next = "Next"
+    
+    func localizedString() -> String {
+        return NSLocalizedString(self.rawValue, comment: "")
+    }
+    
+    static func getTitleFor(title: ButtonTitles) -> String {
+        return title.localizedString()
+    }
 }
 
 extension SpotlightViewController {
@@ -34,14 +43,14 @@ extension SpotlightViewController {
 
     func setupInfoView() {
         let backButton = createButton()
-        backButton.setTitle(ButtonTitles.back.rawValue, for: .normal)
+        backButton.setTitle(ButtonTitles.getTitleFor(title: .back), for: .normal)
+        let cancelButton = createButton()
+        cancelButton.setTitle(ButtonTitles.getTitleFor(title: .cancel), for: .normal)
         let nextButton = createButton()
-        nextButton.setTitle(ButtonTitles.next.rawValue, for: .normal)
-        let spacerView = UIView()
-        spacerView.backgroundColor = .clear
-        let buttonsStack = UIStackView(arrangedSubviews: [backButton, spacerView, nextButton])
+        nextButton.setTitle(ButtonTitles.getTitleFor(title: .next), for: .normal)
+        let buttonsStack = UIStackView(arrangedSubviews: [backButton, cancelButton, nextButton])
         buttonsStack.axis = .horizontal
-        buttonsStack.distribution = .fill
+        buttonsStack.distribution = .equalSpacing
 
         infoLabel = createLabel()
         infoStackView = UIStackView(arrangedSubviews: [infoLabel, buttonsStack])

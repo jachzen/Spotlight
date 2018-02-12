@@ -40,8 +40,8 @@ final class SpotlightViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        spotlightView.isHidden = true
         timer.invalidate()
+        dismiss(animated: true, completion: nil)
     }
 
     let spotlightView = SpotlightView()
@@ -61,9 +61,11 @@ extension SpotlightViewController {
         timer.invalidate()
         guard let title = button.titleLabel?.text else { return }
         switch title {
-        case ButtonTitles.next.rawValue:
+        case ButtonTitles.getTitleFor(title: .next):
             nextSpotlight()
-        case ButtonTitles.back.rawValue:
+        case ButtonTitles.getTitleFor(title: .cancel):
+            cancelSpotlight()
+        case ButtonTitles.getTitleFor(title: .back):
             previousSpotlight()
         default:
             break
@@ -83,8 +85,16 @@ extension SpotlightViewController {
         currentNodeIndex += 1
         showSpotlight()
     }
+    
+    func cancelSpotlight() {
+        dismiss(animated: true, completion: nil)
+    }
 
     func previousSpotlight() {
+        if currentNodeIndex == 0 {
+            dismiss(animated: true, completion: nil)
+            return
+        }
         guard currentNodeIndex > 0 else { return }
         currentNodeIndex -= 1
         showSpotlight()
@@ -106,7 +116,12 @@ extension SpotlightViewController {
         view.layoutIfNeeded()
         UIView.animate(withDuration: Spotlight.animationDuration, animations: { [weak self] in
             guard let `self` = self else { return }
-            self.infoLabel.text = node.text
+            if let text = node.text {
+                self.infoLabel.text = text
+            }
+            if let attributedText = node.attributedText {
+                self.infoLabel.attributedText = attributedText
+            }
             if targetRect.intersects(self.infoStackView.frame) {
                 if self.infoStackTopConstraint.priority == .defaultLow {
                     self.infoStackTopConstraint.priority = .defaultHigh
