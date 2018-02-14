@@ -28,7 +28,7 @@ enum ButtonTitles: String {
 extension SpotlightViewController {
 
     func setup() {
-        modalPresentationStyle = .overCurrentContext
+        modalPresentationStyle = .overFullScreen
     }
 
     func setupSpotlightView() {
@@ -72,7 +72,7 @@ extension SpotlightViewController {
         infoStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 
         infoStackTopConstraint = infoStackView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 44)
-        infoStackBottomConstraint = infoStackView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -44)
+        infoStackBottomConstraint = infoStackView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -8)
         infoStackTopConstraint.priority = .defaultLow
         infoStackBottomConstraint.priority = .defaultHigh
         infoStackTopConstraint.isActive = true
