@@ -8,6 +8,6 @@
 import Foundation
 
 
-protocol SpotlightDelegate {
+public protocol SpotlightDelegate {
     func cleanUp()
 }
