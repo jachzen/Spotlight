@@ -30,7 +30,6 @@ final class SpotlightViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("### viewDidLoad \(self)")
         setupSpotlightView()
         setupInfoView()
         setupTapGestureRecognizer()
@@ -38,22 +37,17 @@ final class SpotlightViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("### viewDidAppear \(self)")
         nextSpotlight()
         timer = Timer.scheduledTimer(timeInterval: Spotlight.moveDuration, target: self, selector: #selector(nextSpotlight), userInfo: nil, repeats: true)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("### viewWillDisappear \(self)")
         timer.invalidate()
-//        dismiss(animated: true, completion: nil)
-        
-//        self.navigationController!.popViewController(animated: true)
+
         if let delegate = delegate {
             delegate.cleanUp()
         }
-        
     }
 
     let spotlightView = SpotlightView()
