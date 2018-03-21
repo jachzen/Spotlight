@@ -9,5 +9,20 @@ import Foundation
 
 
 public protocol SpotlightDelegate {
+    
     func cleanUp()
+    func scrollTo(_ tag: String)
+    func scrollAfter(_ index: Int) -> Bool
+    
+}
+
+public extension SpotlightDelegate {
+    
+    func scrollTo(_ tag: String) {
+    }
+    
+    func scrollAfter(_ index: Int) -> Bool {
+        return false
+    }
+
 }

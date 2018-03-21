@@ -13,8 +13,8 @@ import UIKit
 final class SpotlightViewController: UIViewController {
 
     var delegate: SpotlightDelegate?
-    
     var spotlightNodes: [SpotlightNode] = []
+    var scrolled = false
 
     // MARK: - View Controller Life cycle
 
@@ -84,12 +84,22 @@ extension SpotlightViewController {
     }
 
     @objc func nextSpotlight() {
-        if currentNodeIndex == spotlightNodes.count - 1 {
-            dismiss(animated: true, completion: nil)
-            return
+        if let delegate = delegate {
+            if delegate.scrollAfter(currentNodeIndex) {
+                scrolled = true
+                UIView.animate(withDuration: Spotlight.scrollDuration, delay: 0.0, options: .curveEaseOut,
+                  animations: {
+                    delegate.scrollTo("bottom")
+                }, completion: { _ in
+                    self.nextOrDismissSpotlight()
+                })
+            }
         }
-        currentNodeIndex += 1
-        showSpotlight()
+
+        if !scrolled {
+            nextOrDismissSpotlight()
+        }
+        scrolled = false
     }
     
     func cancelSpotlight() {
@@ -97,10 +107,40 @@ extension SpotlightViewController {
     }
 
     func previousSpotlight() {
+        if let delegate = delegate {
+            if delegate.scrollAfter(currentNodeIndex - 1) {
+                scrolled = true
+                UIView.animate(withDuration: Spotlight.scrollDuration, delay: 0.0, options: .curveEaseOut,
+                  animations: {
+                    delegate.scrollTo("top")
+                }, completion: { _ in
+                    self.previousOrDismissSpotlight()
+                })
+            }
+        }
+
+        if !scrolled {
+            previousOrDismissSpotlight()
+        }
+        scrolled = false
+    }
+    
+    func nextOrDismissSpotlight() {
+        if currentNodeIndex == spotlightNodes.count - 1 {
+            dismiss(animated: true, completion: nil)
+            return
+        }
+        
+        currentNodeIndex += 1
+        showSpotlight()
+    }
+    
+    func previousOrDismissSpotlight() {
         if currentNodeIndex == 0 {
             dismiss(animated: true, completion: nil)
             return
         }
+        
         guard currentNodeIndex > 0 else { return }
         currentNodeIndex -= 1
         showSpotlight()
