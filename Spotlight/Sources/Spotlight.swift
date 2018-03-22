@@ -14,6 +14,11 @@ public struct Spotlight {
     public static var moveDuration: TimeInterval = 4.0
     public static var animationDuration: TimeInterval = 0.25
     public static var scrollDuration: TimeInterval = 0.3
+    
+    public enum ScrollDirection: String {
+        case up = "up"
+        case down = "down"
+    }
 
     public init() {}
     

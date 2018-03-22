@@ -8,17 +8,17 @@
 import Foundation
 
 
-public protocol SpotlightDelegate {
+public protocol SpotlightDelegate: class {
     
     func cleanUp()
-    func scrollTo(_ tag: String)
+    func scrollTo(_ direction: Spotlight.ScrollDirection, _ index: Int)
     func scrollAfter(_ index: Int) -> Bool
     
 }
 
 public extension SpotlightDelegate {
     
-    func scrollTo(_ tag: String) {
+    func scrollTo(_ direction: Spotlight.ScrollDirection, _ index: Int) {
     }
     
     func scrollAfter(_ index: Int) -> Bool {

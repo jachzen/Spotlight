@@ -12,7 +12,7 @@ import UIKit
 
 final class SpotlightViewController: UIViewController {
 
-    var delegate: SpotlightDelegate?
+    weak var delegate: SpotlightDelegate?
     var spotlightNodes: [SpotlightNode] = []
     var scrolled = false
 
@@ -89,7 +89,7 @@ extension SpotlightViewController {
                 scrolled = true
                 UIView.animate(withDuration: Spotlight.scrollDuration, delay: 0.0, options: .curveEaseOut,
                   animations: {
-                    delegate.scrollTo("bottom")
+                    delegate.scrollTo(Spotlight.ScrollDirection.down, self.currentNodeIndex)
                 }, completion: { _ in
                     self.nextOrDismissSpotlight()
                 })
@@ -112,7 +112,7 @@ extension SpotlightViewController {
                 scrolled = true
                 UIView.animate(withDuration: Spotlight.scrollDuration, delay: 0.0, options: .curveEaseOut,
                   animations: {
-                    delegate.scrollTo("top")
+                    delegate.scrollTo(Spotlight.ScrollDirection.up, self.currentNodeIndex)
                 }, completion: { _ in
                     self.previousOrDismissSpotlight()
                 })
