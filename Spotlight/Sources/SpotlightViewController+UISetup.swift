@@ -12,9 +12,9 @@ import UIKit
 // MARK: - UI Setup
 
 enum ButtonTitles: String {
-    case back = "Back"
-    case cancel = "Cancel"
-    case next = "Next"
+    case back = "zurück"
+    case cancel = "X"
+    case next = "weiter"
     
     func localizedString() -> String {
         return NSLocalizedString(self.rawValue, comment: "")
