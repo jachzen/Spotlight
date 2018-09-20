@@ -36,7 +36,7 @@ extension SpotlightViewController {
         spotlightView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
         spotlightView.isUserInteractionEnabled = false
         view.insertSubview(spotlightView, at: 0)
-        view.addConstraints([NSLayoutAttribute.top, .bottom, .left, .right].map {
+        view.addConstraints([NSLayoutConstraint.Attribute.top, .bottom, .left, .right].map {
             NSLayoutConstraint(item: view, attribute: $0, relatedBy: .equal, toItem: spotlightView, attribute: $0, multiplier: 1, constant: 0)
         })
     }
