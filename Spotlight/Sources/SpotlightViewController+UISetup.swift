@@ -33,7 +33,7 @@ extension SpotlightViewController {
 
     func setupSpotlightView() {
         spotlightView.frame = UIScreen.main.bounds
-        spotlightView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
+        spotlightView.backgroundColor = UIColor.adaptiveBlack.withAlphaComponent(0.75)
         spotlightView.isUserInteractionEnabled = false
         view.insertSubview(spotlightView, at: 0)
         view.addConstraints([NSLayoutConstraint.Attribute.top, .bottom, .left, .right].map {
@@ -105,4 +105,20 @@ extension SpotlightViewController {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(SpotlightViewController.viewTapped(_:)))
         view.addGestureRecognizer(gesture)
     }
+    
+    static var adaptiveBlack: UIColor {
+        if #available(iOS 13, *) {
+            return UIColor { (traitCollection: UITraitCollection) -> UIColor in
+                if traitCollection.userInterfaceStyle == .dark {
+                    return UIColor.white
+                } else {
+                    return UIColor.black
+                }
+            }
+        } else {
+            return UIColor.black
+        }
+    }
+    
+    
 }

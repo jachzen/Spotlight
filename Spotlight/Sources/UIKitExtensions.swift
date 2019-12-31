@@ -11,7 +11,7 @@ import UIKit
 
 public extension UIView {
 
-    public func embedAndpin(to view: UIView) {
+    func embedAndpin(to view: UIView) {
         self.translatesAutoresizingMaskIntoConstraints = false
         view.insertSubview(self, at: 0)
         NSLayoutConstraint.activate([
@@ -23,3 +23,44 @@ public extension UIView {
     }
 
 }
+
+extension UIColor {
+    
+    static var adaptiveLabel: UIColor {
+        if #available(iOS 13, *) {
+            return UIColor.label
+        } else {
+            return UIColor.adaptiveBlack
+        }
+    }
+ 
+    static var adaptiveBlack: UIColor {
+        if #available(iOS 13, *) {
+            return UIColor { (traitCollection: UITraitCollection) -> UIColor in
+                if traitCollection.userInterfaceStyle == .dark {
+                    return UIColor.white
+                } else {
+                    return UIColor.black
+                }
+            }
+        } else {
+            return UIColor.black
+        }
+    }
+    
+    static var adaptiveWhite: UIColor {
+        if #available(iOS 13, *) {
+            return UIColor { (traitCollection: UITraitCollection) -> UIColor in
+                if traitCollection.userInterfaceStyle == .dark {
+                    return UIColor.black
+                } else {
+                    return UIColor.white
+                }
+            }
+        } else {
+            return UIColor.white
+        }
+    }
+
+}
+

@@ -14,7 +14,7 @@ public struct SpotlightNode {
     var attributedText: NSAttributedString?
     var target: SpotlightTarget
 
-    var textColor: UIColor = .white
+    var textColor = UIColor.adaptiveWhite
     var font: UIFont = UIFont(name: "Futura", size: 18)!
 
     public init(text: String?, attributedText: NSAttributedString?, target: SpotlightTarget) {
