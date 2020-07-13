@@ -11,5 +11,5 @@ Pod::Spec.new do |s|
   s.source_files    = "Sources/LRSpotlight"
   s.framework       = "Foundation"
   s.ios.framework   = "UIKit"
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '12.0'
 end
